@@ -38,7 +38,7 @@ $builder->add('firstname', TextType::class, [
 ]);
 ```
 
-![Selectbox size example](https://github.com/dsmink/twig-bulma-form-theme/edit/master/twig-bulma-form-theme/doc/images/sizes.png)
+![Selectbox size example](https://raw.githubusercontent.com/dsmink/twig-bulma-form-theme/master/doc/images/sizes.png)
 
 > **NOTE**
 >
@@ -69,7 +69,7 @@ $builder
 ;
 ```
 
-![Username and password widgets with icons](https://github.com/dsmink/twig-bulma-form-theme/edit/master/twig-bulma-form-theme/doc/images/username_password.png)
+![Username and password widgets with icons](https://raw.githubusercontent.com/dsmink/twig-bulma-form-theme/master/doc/images/username_password.png)
 
 > **Need more icons?**
 >
