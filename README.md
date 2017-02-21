@@ -15,7 +15,7 @@ This form theme was built to work with Twig in combination with the Symfony Fram
   * [Examples](#examples)
   * [Sources](#sources)
 
-### How to use the form theme?
+### How to use the form theme:
 
 The easiest way to make use of the form theme in Symfony is to set this form theme in the configuration file. Have a look at the [Symfony documentation](https://symfony.com/doc/current/form/form_customization.html#making-application-wide-customizations). Also example files are provided in this repository.
 
