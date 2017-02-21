@@ -1,0 +1,18 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+services:
+
+    app.text_type_extension:
+        class: AppBundle\Form\Extension\TextTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\TextType }
+            
+    app.money_type_extension:
+        class: AppBundle\Form\Extension\MoneyTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\MoneyType }
+            
+    app.percent_type_extension:
+        class: AppBundle\Form\Extension\PercentTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\PercentType }
