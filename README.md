@@ -38,6 +38,8 @@ $builder->add('firstname', TextType::class, [
 ]);
 ```
 
+![Selectbox size example](/doc/images/sizes.png)
+
 > **NOTE**
 >
 > The default size needs no extra class. Suppoted sizes are **is-small**, **is-medium** and **is-large**.
@@ -66,6 +68,8 @@ $builder
     ])
 ;
 ```
+
+![Username and password widgets with icons](/doc/images/username_password.png)
 
 > **Need more icons?**
 >
