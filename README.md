@@ -10,7 +10,7 @@ Bulma is a modern CSS framework based on Flexbox. This form theme was created fo
 This form theme was built to work with Twig in combination with the Symfony Framework for websites built on top of the Bulma CSS framework. 
 
 ## Index
-  * [How to use the form theme](♯how-to-use-the-form-theme)
+  * [How to use the form theme](#how-to-use-the-form-theme)
   * [Icon support](#icon-support)
   * [Examples](#examples)
   * [Sources](#sources)
