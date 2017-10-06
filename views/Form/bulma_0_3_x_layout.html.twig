@@ -3,51 +3,51 @@
 {# Widgets #}
 
 {%- block form_widget_simple -%}
-{% spaceless %}
-    {%- if type is not defined or type not in ['file', 'hidden'] -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
-    {%- endif -%}
-    {%- set size_class = '' -%}
-    {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
-        {%- set size_class = size -%}
-    {%- endfor -%}
-    {%- set widget_icon = attribute(form.vars, 'bulma_icon')|default(false) -%}
-    <p {{ block('form_widget_container_attributes') }}>
-        {{- parent() -}}
-        {%- if widget_icon != false -%}
-            <span class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
+    {% spaceless %}
+        {%- if type is not defined or type not in ['file', 'hidden'] -%}
+            {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
+        {%- endif -%}
+        {%- set size_class = '' -%}
+        {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
+            {%- set size_class = size -%}
+        {%- endfor -%}
+        {%- set widget_icon = attribute(form.vars, 'bulma_icon')|default(false) -%}
+        <div {{ block('form_widget_container_attributes') }}>
+            {{- parent() -}}
+            {%- if widget_icon != false -%}
+                <span class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
                 <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
             </span>
-        {%- endif -%}
-        {{- block('form_errors') -}}
-    </p>
-{% endspaceless %}
+            {%- endif -%}
+            {{- block('form_errors') -}}
+        </div>
+    {% endspaceless %}
 {%- endblock form_widget_simple %}
 
 {%- block choice_widget_collapsed -%}
-{% spaceless %}
-    {%- set size_class = '' -%}
-    {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
-        {%- set size_class = size -%}
-    {%- endfor -%}
-    <p {{ block('form_widget_container_attributes') }}>
+    {% spaceless %}
+        {%- set size_class = '' -%}
+        {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
+            {%- set size_class = size -%}
+        {%- endfor -%}
+        <div {{ block('form_widget_container_attributes') }}>
         <span class="{{ ('select ' ~ size_class)|trim }}">
             {{- parent() -}}
         </span>
-        {{- block('form_errors') -}}
-    </p>
-{% endspaceless %}
+            {{- block('form_errors') -}}
+        </div>
+    {% endspaceless %}
 {%- endblock choice_widget_collapsed -%}
 
 {%- block choice_widget_expanded -%}
     {%- if '--inline' in form.vars.attr.class|default('') -%}
         {%- set inline_choice = true -%}
     {%- endif -%}
-    
+
     {%- if inline_choice|default(false) == true -%}
-        <p {{ block('form_widget_container_attributes') }}>
+        <div {{ block('form_widget_container_attributes') }}>
     {%- endif -%}
-    
+
     {%- set attr = attr|merge({class: (attr.class|default('') ~ ' control')|trim}) -%}
     <div {{ block('widget_container_attributes') }}>
         {%- for child in form -%}
@@ -58,18 +58,18 @@
         {%- endfor -%}
         {{- block('form_errors') -}}
     </div>
-        
+
     {%- if inline_choice|default(false) == true -%}
-        </p>
+        </div>
     {%- endif -%}
 {%- endblock choice_widget_expanded -%}
 
 {%- block textarea_widget -%}
-    <p {{ block('form_widget_container_attributes') }}>
+    <div {{ block('form_widget_container_attributes') }}>
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' textarea')|trim}) -%}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         {{- block('form_errors') -}}
-    </p>
+    </div>
 {%- endblock textarea_widget -%}
 
 {%- block number_widget -%}
@@ -117,24 +117,23 @@
 
 {%- block submit_widget -%}
     {%- set type = type|default('submit') -%}
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ 'button is-primary')|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' button is-primary')|trim}) -%}
     {{- block('button_widget') -}}
 {%- endblock submit_widget -%}
 
 {%- block reset_widget -%}
     {%- set type = type|default('reset') -%}
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ 'button is-link')|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' button is-link')|trim}) -%}
     {{- block('button_widget') -}}
 {%- endblock reset_widget -%}
 
 {%- block button_widget -%}
     {%- set btn_class = 'is-link' -%}
     {%- for color in [ 'is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger' ]
-        if color in attr.class|default('')
-    -%}
+    if color in attr.class|default('') -%}
         {%- set btn_class = color -%}
     {%- endfor -%}
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' button ' ~ btn_class)|trim})-%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' button ' ~ btn_class)|trim}) -%}
     <p {{ block('form_widget_container_attributes') }}>
         {{- parent() -}}
     </p>
@@ -166,27 +165,32 @@
         {%- if label is not same as(false) and label is empty -%}
             {%- if label_format is not empty -%}
                 {%- set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
+                '%name%': name,
+                '%id%': id,
                 }) -%}
             {%- else -%}
                 {%- set label = name|humanize -%}
             {%- endif -%}
         {%- endif -%}
-        {%- if not inline_choice|default(false) %}<p class="control">{% endif -%}
+        {%- if not inline_choice|default(false) %}<div class="control">{% endif -%}
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{- widget|raw }} {{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) -}}
+        {{- widget|raw }} {{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) -}}
         </label>
         {{- block('form_errors') -}}
-        {%- if not inline_choice|default(false) %}</p>{% endif -%}
+        {%- if not inline_choice|default(false) %}</div>{% endif -%}
     {% endif %}
 {% endblock checkbox_radio_label %}
 
 {# Rows #}
 
 {%- block form_row -%}
-    {{- form_label(form) -}}
-    {{- form_widget(form) -}}
+    <div class="field">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {%- if form.vars.attr.help_text is defined -%}
+            <p class="help">{{ form.vars.attr.help_text }}</p>
+        {%- endif -%}
+    </div>
 {%- endblock form_row -%}
 
 {%- block checkbox_row -%}
