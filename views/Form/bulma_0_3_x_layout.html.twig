@@ -30,8 +30,9 @@
         {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
             {%- set size_class = size -%}
         {%- endfor -%}
+        {%- set is_multiple_class = multiple ? ' is-multiple' : '' -%}
         <div {{ block('form_widget_container_attributes') }}>
-        <span class="{{ ('select ' ~ size_class)|trim }}">
+        <span class="{{ ('select ' ~ size_class ~ is_multiple_class)|trim }}">
             {{- parent() -}}
         </span>
             {{- block('form_errors') -}}
