@@ -3,13 +3,14 @@
 {# Widgets #}
 
 {%- block form_widget_simple -%}
-    {% spaceless %}
         {%- if type is not defined or type not in ['file', 'hidden'] -%}
             {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
         {%- endif -%}
         {%- set size_class = '' -%}
-        {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
-            {%- set size_class = size -%}
+        {%- for size in ['is-small', 'is-medium', 'is-large'] -%}
+            {% if size in form.vars.attr.class|default('') %}
+                {%- set size_class = size -%}
+            {% endif %}
         {%- endfor -%}
         {%- set widget_icon = attribute(form.vars, 'bulma_icon')|default(false) -%}
         <div {{ block('form_widget_container_attributes') }}>
@@ -21,14 +22,14 @@
             {%- endif -%}
             {{- block('form_errors') -}}
         </div>
-    {% endspaceless %}
 {%- endblock form_widget_simple %}
 
 {%- block choice_widget_collapsed -%}
-    {% spaceless %}
         {%- set size_class = '' -%}
-        {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
-            {%- set size_class = size -%}
+        {%- for size in ['is-small', 'is-medium', 'is-large'] -%}
+            {% if size in form.vars.attr.class|default('') %}
+                {%- set size_class = size -%}
+            {% endif %}
         {%- endfor -%}
         {%- set is_multiple_class = multiple ? ' is-multiple' : '' -%}
         <div {{ block('form_widget_container_attributes') }}>
@@ -37,7 +38,6 @@
         </span>
             {{- block('form_errors') -}}
         </div>
-    {% endspaceless %}
 {%- endblock choice_widget_collapsed -%}
 
 {%- block choice_widget_expanded -%}
@@ -130,9 +130,10 @@
 
 {%- block button_widget -%}
     {%- set btn_class = 'is-link' -%}
-    {%- for color in [ 'is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger' ]
-    if color in attr.class|default('') -%}
-        {%- set btn_class = color -%}
+    {%- for color in [ 'is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger' ] -%}
+        {% if color in attr.class|default('') %}
+            {%- set btn_class = color -%}
+        {% endif %}
     {%- endfor -%}
     {%- set attr = attr|merge({class: (attr.class|default('') ~ ' button ' ~ btn_class)|trim}) -%}
     <p {{ block('form_widget_container_attributes') }}>
@@ -166,8 +167,8 @@
         {%- if label is not same as(false) and label is empty -%}
             {%- if label_format is not empty -%}
                 {%- set label = label_format|replace({
-                '%name%': name,
-                '%id%': id,
+                    '%name%': name,
+                    '%id%': id,
                 }) -%}
             {%- else -%}
                 {%- set label = name|humanize -%}
