@@ -1,19 +1,19 @@
 # twig-bulma-form-theme
-A Twig Form Theme for Bulma 0.3.x for use with the Symfony 2.8 / 3.x framework
+A Twig 3.x Form Theme for Bulma 0.9.x for use with Symfony 5.x
 
 ---
 
-# Twig Bulma (v0.3.x) Form theme
+# Twig (3.x) Bulma (v0.9.x) Form theme
 
 Bulma is a modern CSS framework based on Flexbox. This form theme was created for use with the Twig Template engine. Twig is a modern template engine for PHP.
 
-This form theme was built to work with Twig in combination with the Symfony Framework for websites built on top of the Bulma CSS framework. 
+This form theme was built to work with Twig in combination with the Symfony Framework for websites built on top of the Bulma CSS framework.
 
 ## Index
-  * [How to use the form theme](#how-to-use-the-form-theme)
-  * [Icon support](#icon-support)
-  * [Examples](#examples)
-  * [Sources](#sources)
+* [How to use the form theme](#how-to-use-the-form-theme)
+* [Icon support](#icon-support)
+* [Examples](#examples)
+* [Sources](#sources)
 
 ### How to use the form theme:
 
@@ -75,11 +75,58 @@ $builder
 >
 > Have a look at the bulma.io and fontawesome.io website to find out which icons are available and how to implement them.
 
+### Dropdown with ChoiceType:
+
+The following example is for use with the Symfony Form Type 'ChoiceType'
+
+```php
+->add('checkbox_dropdown', Type\ChoiceType::class, [
+    'choices' => [
+        // choice groups are supported (including 'group_by' method)
+        'Group header 1' => [
+            'Checkbox 1' => 1,
+            'Checkbox 2' => 2,
+        ],
+        'Group header 2' => [
+            'Checkbox 3' => 3,
+            'Checkbox 4' => 4,
+        ],
+    ],
+    'label' => false, // = don't render top label (trigger button label is always rendered)
+    'expanded' => true, // required to use dropdown
+    'multiple' => true, // true = checkboxes, false = radio buttons
+    'attr' => [
+        'dropdown' => true, // required to use dropdown
+        'dropdown_arrow_icon' => false, // default to true
+        'class' => 'is-rounded is-outlined', // added to dropdown trigger button
+    ],
+])
+```
+
+Render it inside a form:
+
+```html
+<!-- easiest way to render -->
+{{ form_row(form.checkbox_dropdown) }}
+
+<!-- if you need to customize a little bit -->
+<div class="field">
+    <!-- remove form_label() if you don't want the top label -->
+    <!-- but still a customizable label inside dropdown trigger button -->
+    {{ form_label(form.checkbox_dropdown) }}
+    <div class="dropdown">
+        {{ form_widget(form.checkbox_dropdown) }}
+    </div>
+</div>
+```
+
+![Dropdown with ChoiceType](doc/images/choice_type_dropdown.png)
+
 ## Sources
 
 Have a look at the following websites and their documentation for more information about this subject.
 
- * The [Bulma](http://bulma.io/) CSS framework website;
- * The [Font Awesome](http://fontawesome.io/) font and CSS toolkit;
- * The [Twig](http://twig.sensiolabs.org/) Template engine for PHP website;
- * The [Symfony](http://symfony.com/) PHP framework website.
+* The [Bulma](http://bulma.io/) CSS framework website;
+* The [Font Awesome](http://fontawesome.io/) font and CSS toolkit;
+* The [Twig](http://twig.symfony.com/) Template engine for PHP website;
+* The [Symfony](http://symfony.com/) PHP framework website.
