@@ -1,0 +1,21 @@
+{
+  "name": "sirvoy/twig-bulma-form-theme-bundle",
+  "description": "A Twig Form Theme for Bulma for use with Symfony",
+  "type": "library",
+  "keywords": ["theme", "symfony", "twig", "bulma"],
+  "readme": "README.md",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dennis Smink",
+      "role": "Developer"
+    },
+    {
+      "name": "Sirvoy",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/sirvoy/twig-bulma-form-theme-bundle"
+  }
+}

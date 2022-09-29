@@ -1,3 +1,6 @@
+### 2022-09-29
+* Add composer.json file to project
+
 ### 2022-08-19
 * Block `checkbox_radio_label`: Handle translations similar to what is done at block `form_label` in parent theme `form_div_layout.html.twig`
 
