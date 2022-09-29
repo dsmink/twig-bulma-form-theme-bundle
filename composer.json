@@ -1,6 +1,6 @@
 {
   "name": "sirvoy/twig-bulma-form-theme-bundle",
-  "description": "A Twig 3.x Form Theme for Bulma 0.9.x for use with Symfony 5.x",
+  "description": "A Twig Form Theme for Bulma for use with Symfony",
   "type": "library",
   "keywords": ["theme", "symfony", "twig", "bulma"],
   "readme": "README.md",
