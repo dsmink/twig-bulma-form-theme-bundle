@@ -3,25 +3,29 @@
 {# Widgets #}
 
 {%- block form_widget_simple -%}
-    {%- if type is not defined or type not in ['file', 'hidden'] -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
-    {%- endif -%}
-    {%- set size_class = '' -%}
-    {%- for size in ['is-small', 'is-medium', 'is-large'] -%}
-        {% if size in form.vars.attr.class|default('') %}
-            {%- set size_class = size -%}
-        {% endif %}
-    {%- endfor -%}
-    {%- set widget_icon = attribute(form.vars, 'bulma_icon')|default(false) -%}
-    <div {{ block('form_widget_container_attributes') }}>
+    {%- if type is defined and type is same as 'hidden' -%}
         {{- parent() -}}
-        {%- if widget_icon != false -%}
-            <div class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
-                <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
-            </div>
+    {%- else -%}
+        {%- if type is not defined or type not in ['file'] -%}
+            {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
         {%- endif -%}
-        {{- block('form_errors') -}}
-    </div>
+        {%- set size_class = '' -%}
+        {%- for size in ['is-small', 'is-medium', 'is-large'] -%}
+            {% if size in form.vars.attr.class|default('') %}
+                {%- set size_class = size -%}
+            {% endif %}
+        {%- endfor -%}
+        {%- set widget_icon = attribute(form.vars, 'bulma_icon')|default(false) -%}
+        <div {{ block('form_widget_container_attributes') }}>
+            {{- parent() -}}
+            {%- if widget_icon != false -%}
+                <div class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
+                    <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
+                </div>
+            {%- endif -%}
+            {{- block('form_errors') -}}
+        </div>
+    {%- endif -%}
 {%- endblock form_widget_simple %}
 
 {%- block choice_widget_collapsed -%}
