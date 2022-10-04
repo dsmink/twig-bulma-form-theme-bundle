@@ -1,3 +1,6 @@
+### 2022-10-04
+* Block `form_widget_simple`: Don't add anything new to hidden fields, so they don't take space in DOM
+
 ### 2022-09-29
 * Add composer.json file to project
 
