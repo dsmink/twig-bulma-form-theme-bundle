@@ -29,7 +29,6 @@
 {%- endblock form_widget_simple %}
 
 {%- block choice_widget_collapsed -%}
-    {# CHANGE: instead of only implementing bulma size classes, implement all bulma classes to this #}
     {% set classes = form.vars.attr.class|default('') %}
     <div {{ block('form_widget_container_attributes') }}>
         <div class="{{ ('select ' ~ (multiple ? 'is-multiple ') ~ classes|join(' '))|trim }}">

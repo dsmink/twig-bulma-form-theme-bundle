@@ -1,5 +1,5 @@
 # twig-bulma-form-theme
-A Twig 3.x Form Theme for Bulma 0.9.x for use with Symfony 5.x
+A Twig 3.x Form Theme for Bulma 0.9.x for use with Symfony 5/6 framework
 
 ---
 
