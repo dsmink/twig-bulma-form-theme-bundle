@@ -122,6 +122,15 @@ Render it inside a form:
 
 ![Dropdown with ChoiceType](doc/images/choice_type_dropdown.png)
 
+Add this styling if you need a scrollbar on your dropdowns
+
+```css
+.dropdown-content {
+  max-height: 25rem;
+  overflow-y: auto;
+}
+```
+
 ## Sources
 
 Have a look at the following websites and their documentation for more information about this subject.

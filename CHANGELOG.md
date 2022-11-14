@@ -1,3 +1,6 @@
+### 2022-11-14
+* Block `choice_widget_dropdown`: Removed inline-styles and added it to docs
+
 ### 2022-10-04
 * Block `form_widget_simple`: Don't add anything new to hidden fields, so they don't take space in DOM
 
