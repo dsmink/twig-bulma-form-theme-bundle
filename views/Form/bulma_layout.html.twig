@@ -268,9 +268,7 @@
     <div class="field">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
-        {%- if form.vars.attr.help_text is defined -%}
-            <p class="help">{{ form.vars.attr.help_text }}</p>
-        {%- endif -%}
+        {{- form_help(form) -}}
     </div>
 {%- endblock form_row -%}
 
@@ -281,6 +279,7 @@
             <div class="dropdown">
                 {{- form_widget(form) -}}
             </div>
+            {{- form_help(form) -}}
         </div>
     {%- else -%}
         {{- block('form_row') -}}
@@ -290,12 +289,25 @@
 {%- block money_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_help(form) -}}
 {%- endblock money_row -%}
 
 {%- block percent_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_help(form) -}}
 {%- endblock percent_row -%}
+
+{# Help #}
+
+{% block form_help -%}
+    {%- if help is not empty -%}
+        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' help')|trim}) -%}
+        <p id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+            {{- block('form_help_content') -}}
+        </p>
+    {%- endif -%}
+{%- endblock form_help %}
 
 {# Errors #}
 
