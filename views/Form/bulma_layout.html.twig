@@ -307,11 +307,15 @@
 {%- block money_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_errors(form) -}}
+    {{- form_help(form) -}}
 {%- endblock money_row -%}
 
 {%- block percent_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_errors(form) -}}
+    {{- form_help(form) -}}
 {%- endblock percent_row -%}
 
 {# Errors #}
