@@ -23,7 +23,6 @@
                     <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
                 </div>
             {%- endif -%}
-            {{- block('form_errors') -}}
         </div>
     {%- endif -%}
 {%- endblock form_widget_simple %}
@@ -34,7 +33,6 @@
         <div class="{{ ('select ' ~ (multiple ? 'is-multiple ') ~ classes|join(' '))|trim }}">
             {{- parent() -}}
         </div>
-        {{- block('form_errors') -}}
     </div>
 {%- endblock choice_widget_collapsed -%}
 
@@ -59,7 +57,6 @@
                     translation_domain: choice_translation_domain,
                 }) -}}
             {%- endfor -%}
-            {{- block('form_errors') -}}
         </div>
 
         {%- if inline_choice|default(false) == true -%}
@@ -126,14 +123,12 @@
             {%- endfor -%}
         </div>
     </div>
-    {{- block('form_errors') -}}
 {%- endblock -%}
 
 {%- block textarea_widget -%}
     <div {{ block('form_widget_container_attributes') }}>
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' textarea')|trim}) -%}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-        {{- block('form_errors') -}}
     </div>
 {%- endblock textarea_widget -%}
 
@@ -159,7 +154,6 @@
         <div {{ block('widget_container_attributes') }}>
             {{- form_widget(form.date) -}}
             {{- form_widget(form.time) -}}
-            {{- form_errors(form) -}}
             {{- form_errors(form.date) -}}
             {{- form_errors(form.time) -}}
         </div>
@@ -257,10 +251,32 @@
             {% endif %}
         {% endif %}
         </label>
-        {{- block('form_errors') -}}
         {%- if not inline_choice|default(false) %}</div>{% endif -%}
     {% endif %}
 {% endblock checkbox_radio_label %}
+
+{# Help #}
+
+{%- block form_help -%}
+    {%- if help is not empty -%}
+        {%- set help_attr = help_attr|merge({class: ('help ' ~ help_attr.class|default(''))|trim}) -%}
+        <div id="{{ id }}_help"{%- with { attr: help_attr } -%}{{- block('attributes') -}}{%- endwith -%}>
+            {%- if translation_domain is same as(false) -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help -}}
+                {%- else -%}
+                    {{- help|raw -}}
+                {%- endif -%}
+            {%- else -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help|trans(help_translation_parameters, translation_domain) -}}
+                {%- else -%}
+                    {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
+                {%- endif -%}
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+{%- endblock -%}
 
 {# Rows #}
 
@@ -268,6 +284,7 @@
     <div class="field">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
         {{- form_help(form) -}}
     </div>
 {%- endblock form_row -%}
@@ -279,6 +296,7 @@
             <div class="dropdown">
                 {{- form_widget(form) -}}
             </div>
+            {{- form_errors(form) -}}
             {{- form_help(form) -}}
         </div>
     {%- else -%}
@@ -289,25 +307,16 @@
 {%- block money_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_errors(form) -}}
     {{- form_help(form) -}}
 {%- endblock money_row -%}
 
 {%- block percent_row -%}
     {{- form_label(form) -}}
     {{- block('form_widget_simple') -}}
+    {{- form_errors(form) -}}
     {{- form_help(form) -}}
 {%- endblock percent_row -%}
-
-{# Help #}
-
-{% block form_help -%}
-    {%- if help is not empty -%}
-        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' help')|trim}) -%}
-        <p id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
-            {{- block('form_help_content') -}}
-        </p>
-    {%- endif -%}
-{%- endblock form_help %}
 
 {# Errors #}
 
