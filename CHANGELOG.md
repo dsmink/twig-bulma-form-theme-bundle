@@ -1,3 +1,9 @@
+### 2023-03-07
+* Block `form_help`: Implement our own from parent theme, resolve issue with help class and element type
+* Block `form_row`: Remove bad way of getting help text through `form.vars.attr.help_text`
+* Block `form_row`, `choice_row`, `money_row` & `percent_row`: Add `{{- form_errors(form) -}}` & `{{- form_help(form) -}}`
+* Remove all `{{- block('form_errors') -}}` to avoid duplicated error messages
+
 ### 2022-11-14
 * Block `choice_widget_dropdown`: Removed inline-styles and added it to docs
 
