@@ -281,7 +281,8 @@
 {# Rows #}
 
 {%- block form_row -%}
-    <div class="field">
+    {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
+    <div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
@@ -291,7 +292,8 @@
 
 {%- block choice_row -%}
     {%- if expanded -%}
-        <div class="field">
+        {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
+        <div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
             {{- form_label(form) -}}
             <div class="dropdown">
                 {{- form_widget(form) -}}
