@@ -282,7 +282,7 @@
 
 {%- block form_row -%}
     {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
-    <div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+    <div {% for attr_name, attr_value in row_attr %} {{ attr_name|escape('html_attr') }}="{{ attr_value|escape('html_attr') }}"{% endfor %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
@@ -293,7 +293,7 @@
 {%- block choice_row -%}
     {%- if expanded -%}
         {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
-        <div {% for attrname, attrvalue in row_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        <div {% for attr_name, attr_value in row_attr %} {{ attr_name|escape('html_attr') }}="{{ attr_value|escape('html_attr') }}"{% endfor %}>
             {{- form_label(form) -}}
             <div class="dropdown">
                 {{- form_widget(form) -}}
