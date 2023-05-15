@@ -233,7 +233,7 @@
             {%- endif -%}
         {%- endif -%}
         {%- if not inline_choice|default(false) %}<div class="control">{% endif -%}
-        <label{% for attr_name, attr_value in label_attr %} {{ attr_name|escape('html_attr') }}="{{ attr_value|escape('html_attr') }}"{% endfor %}>
+        <label{% with {attr: label_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- widget|raw }}
         {% if label is not same as(false) %}
             {% if translation_domain is same as(false) %}
@@ -281,8 +281,8 @@
 {# Rows #}
 
 {%- block form_row -%}
-    {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
-    <div {% for attr_name, attr_value in row_attr %} {{ attr_name|escape('html_attr') }}="{{ attr_value|escape('html_attr') }}"{% endfor %}>
+    {%- set row_attr = row_attr|merge({class: ('field ' ~ row_attr.class|default(''))|trim}) -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
@@ -292,8 +292,8 @@
 
 {%- block choice_row -%}
     {%- if expanded -%}
-        {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' field')|trim}) -%}
-        <div {% for attr_name, attr_value in row_attr %} {{ attr_name|escape('html_attr') }}="{{ attr_value|escape('html_attr') }}"{% endfor %}>
+        {%- set row_attr = row_attr|merge({class: ('field ' ~ row_attr.class|default(''))|trim}) -%}
+        <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
             {{- form_label(form) -}}
             <div class="dropdown">
                 {{- form_widget(form) -}}
