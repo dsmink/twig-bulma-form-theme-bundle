@@ -1,3 +1,7 @@
+### 2023-05-18
+* Add support for `row_attr`
+* Add `escape("html_attr")` filter in HTML tag attributes with data
+
 ### 2023-03-07
 * Block `form_help`: Implement our own from parent theme, resolve issue with help class and element type
 * Block `form_row`: Remove bad way of getting help text through `form.vars.attr.help_text`
