@@ -19,8 +19,8 @@
         <div {{ block('form_widget_container_attributes') }}>
             {{- parent() -}}
             {%- if widget_icon != false -%}
-                <div class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
-                    <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
+                <div class="{{ ('icon ' ~ size_class|default(''))|trim|escape('html_attr') -}}">
+                    <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('')|escape('html_attr') -}}"></i>
                 </div>
             {%- endif -%}
         </div>
@@ -30,7 +30,7 @@
 {%- block choice_widget_collapsed -%}
     {% set classes = form.vars.attr.class|default('') %}
     <div {{ block('form_widget_container_attributes') }}>
-        <div class="{{ ('select ' ~ (multiple ? 'is-multiple ') ~ classes|join(' '))|trim }}">
+        <div class="{{ ('select ' ~ (multiple ? 'is-multiple ') ~ classes|join(' '))|trim|escape('html_attr') }}">
             {{- parent() -}}
         </div>
     </div>
@@ -68,7 +68,7 @@
 {# New block which implements Bulma's `Dropdown`-component when a `ChoiceType` both has 'expanded' & the attribute `dropdown` set to true #}
 {%- block choice_widget_dropdown -%}
     <div class="dropdown-trigger">
-        <button type="button" class="button{{- attr.class is defined ? (' ' ~ attr.class) ~ (form.vars.value is not empty ? ' is-dark') -}}">
+        <button type="button" class="button{{- (attr.class is defined ? (' ' ~ attr.class) ~ (form.vars.value is not empty ? ' is-dark'))|escape('html_attr') -}}">
             {%- if label is empty -%}
                 {%- if label_format is not empty -%}
                     {%- set label = label_format|replace({'%name%': name,'%id%': id}) -%}
@@ -233,7 +233,7 @@
             {%- endif -%}
         {%- endif -%}
         {%- if not inline_choice|default(false) %}<div class="control">{% endif -%}
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        <label{% with {attr: label_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- widget|raw }}
         {% if label is not same as(false) %}
             {% if translation_domain is same as(false) %}
@@ -260,7 +260,7 @@
 {%- block form_help -%}
     {%- if help is not empty -%}
         {%- set help_attr = help_attr|merge({class: ('help ' ~ help_attr.class|default(''))|trim}) -%}
-        <div id="{{ id }}_help"{%- with { attr: help_attr } -%}{{- block('attributes') -}}{%- endwith -%}>
+        <div id="{{ id|escape('html_attr') }}_help"{%- with { attr: help_attr } -%}{{- block('attributes') -}}{%- endwith -%}>
             {%- if translation_domain is same as(false) -%}
                 {%- if help_html is same as(false) -%}
                     {{- help -}}
@@ -281,7 +281,8 @@
 {# Rows #}
 
 {%- block form_row -%}
-    <div class="field">
+    {%- set row_attr = row_attr|merge({class: ('field ' ~ row_attr.class|default(''))|trim}) -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
@@ -291,7 +292,8 @@
 
 {%- block choice_row -%}
     {%- if expanded -%}
-        <div class="field">
+        {%- set row_attr = row_attr|merge({class: ('field ' ~ row_attr.class|default(''))|trim}) -%}
+        <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
             {{- form_label(form) -}}
             <div class="dropdown">
                 {{- form_widget(form) -}}
